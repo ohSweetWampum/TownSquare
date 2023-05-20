@@ -1,5 +1,5 @@
-const { Schema, model } = require('mongoose');
-const assignmentSchema = require('./Assignment');
+const { Schema, model, Types } = require("mongoose");
+const assignmentSchema = require("./Assignment");
 
 // Schema to create Student model
 const studentSchema = new Schema(
@@ -28,6 +28,6 @@ const studentSchema = new Schema(
   }
 );
 
-const Student = model('student', studentSchema);
+const Student = model("student", studentSchema);
 
 module.exports = Student;

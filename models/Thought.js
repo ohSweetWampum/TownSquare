@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require("mongoose");
 
 // Schema to create a course model
 const courseSchema = new Schema(
@@ -23,7 +23,7 @@ const courseSchema = new Schema(
     students: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Student',
+        ref: "Student",
       },
     ],
   },
@@ -35,6 +35,6 @@ const courseSchema = new Schema(
   }
 );
 
-const Course = model('course', courseSchema);
+const Course = model("course", courseSchema);
 
 module.exports = Course;
