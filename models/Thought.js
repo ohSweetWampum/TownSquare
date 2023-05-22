@@ -7,7 +7,7 @@ const reactionSchema = new Schema(
       type: Schema.Types.ObjectId,
       default: () => new Types.ObjectId(),
     },
-    reactionContent: {
+    reactionBody: {
       type: String,
       required: true,
       maxlength: 280,
@@ -16,7 +16,7 @@ const reactionSchema = new Schema(
       type: String,
       required: true,
     },
-    creationDate: {
+    createdAt: {
       type: Date,
       default: Date.now,
       get: (createdAt) => dayjs(createdAt).format("MMM DD, YYYY [at] hh:mm A"),
@@ -31,13 +31,13 @@ const reactionSchema = new Schema(
 
 const thoughtSchema = new Schema(
   {
-    thoughtContent: {
+    thoughtText: {
       type: String,
       required: true,
       minLength: 1,
       maxLength: 280,
     },
-    creationDate: {
+    createdAt: {
       type: Date,
       default: Date.now,
       get: (createdAt) => dayjs(createdAt).format("MMM DD, YYYY [at] hh:mm A"),
@@ -57,7 +57,7 @@ const thoughtSchema = new Schema(
   }
 );
 
-thoughtSchema.virtual("numberOfReactions").get(function () {
+thoughtSchema.virtual("reactionCount").get(function () {
   return this.reactions.length;
 });
 

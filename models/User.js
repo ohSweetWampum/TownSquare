@@ -1,18 +1,19 @@
 const { Schema, model, Types } = require("mongoose");
 const userSchema = new Schema(
   {
-    userName: {
+    username: {
       type: String,
       required: true,
       maxlength: 15,
       minLength: 3,
       unique: true,
+      trim: true,
     },
     email: {
       type: String,
       required: true,
       unique: true,
-      matchesThis: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/],
+      match: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/],
     },
     friends: [
       {
@@ -35,7 +36,7 @@ const userSchema = new Schema(
   }
 );
 
-userSchema.virtual("numberOfFriends").get(function () {
+userSchema.virtual("frienCount").get(function () {
   return this.friends.length;
 });
 
