@@ -1,12 +1,13 @@
 const { Thought, User } = require("../models");
-
+// Controller for thoughts
 const thoughtsController = {
+  // Return all thoughts in the database
   getAllThoughts(req, res) {
     Thought.find()
       .then((thoughts) => res.json(thoughts))
       .catch((err) => res.status(500).json(err));
   },
-
+  // Find a specific thought by ID
   getThoughtById(req, res) {
     Thought.findOne({ _id: req.params.thoughtId })
       .select("-__v")
