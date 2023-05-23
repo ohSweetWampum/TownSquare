@@ -1,20 +1,31 @@
 {
-  "name": "28-Stu_Mini-Project",
-  "version": "1.0.1",
-  "description": "Mongoose back-end project - Main",
-  "main": "index.js",
+  "name": "town-square",
+  "version": "1.0",
+  "description": "social-media-app",
+  "main": "server.js",
   "license": "MIT",
   "scripts": {
-    "start": "node index",
-    "dev": "nodemon index",
-    "seed": "node utils/seed",
-    "heroku-postbuild": "node utils/seed.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "seed": "node utils/seed"
+   
   },
   "dependencies": {
+    "dayjs": "^1.11.6",
     "express": "^4.17.1",
     "mongoose": "^6.0.13"
   },
   "devDependencies": {
     "nodemon": "^2.0.9"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ohSweetWampum/TownSquare.git"
+  },
+  "author": "Matt Gibson",
+  "bugs": {
+    "url": "https://github.com/ohSweetWampum/TownSquare/issues"
+  },  
+  "homepage": "https://github.com/ohSweetWampum/social-network-API#readme"
 }
+
