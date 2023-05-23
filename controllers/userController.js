@@ -1,5 +1,6 @@
 const { ObjectId } = require("mongoose").Types;
 const { User, Thought } = require("../models");
+const mongoose = require("mongoose");
 
 const userCount = async () =>
   User.aggregate()
@@ -94,9 +95,10 @@ module.exports = {
   addFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $addToSet: { friends: req.params.friendId } },
+      { $addToSet: { friends: mongoose.Types.ObjectId(req.params.friendId) } },
       { runValidators: true, new: true }
     )
+      .populate("friends")
       .then((user) =>
         !user
           ? res.status(404).json({ message: "No user found with this ID!" })
@@ -108,9 +110,10 @@ module.exports = {
   removeFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $pull: { friends: req.params.friendId } },
+      { $pull: { friends: mongoose.Types.ObjectId(req.params.friendId) } },
       { runValidators: true, new: true }
     )
+      .populate("friends")
       .then((user) =>
         !user
           ? res.status(404).json({ message: "No user found with this ID :(" })
