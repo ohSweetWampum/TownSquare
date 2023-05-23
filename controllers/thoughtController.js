@@ -9,32 +9,31 @@ const thoughtsController = {
 
   getThoughtById(req, res) {
     Thought.findOne({ _id: req.params.thoughtId })
-      .then((thought) => {
-        if (!thought) {
-          return res
-            .status(404)
-            .json({ message: "No thought found with this id!" });
-        }
-        res.json(thought);
-      })
+      .select("-__v")
+      .then((thought) =>
+        !thought
+          ? res.status(404).json({ message: "No thought with that ID" })
+          : res.json(thought)
+      )
       .catch((err) => res.status(500).json(err));
   },
 
   createThought(req, res) {
     Thought.create(req.body)
-      .then(({ _id }) => {
+      .then((thought) => {
+        console.log(thought);
         return User.findOneAndUpdate(
-          { _id: req.params.userId },
-          { $push: { thoughts: _id } },
-          { new: true }
+          { _id: req.body.userId },
+          { $addToSet: { thoughts: thought._id } },
+          { runValidators: true, new: true }
         );
       })
-      .then((dbUserData) => {
-        if (!dbUserData) {
+      .then((thought) => {
+        if (!thought) {
           res.status(404).json({ message: "No user found with this id!" });
           return;
         }
-        res.json(dbUserData);
+        res.json(thought);
       })
       .catch((err) => res.status(500).json(err));
   },
