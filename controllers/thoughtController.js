@@ -1,3 +1,4 @@
+// Import the models
 const { Thought, User } = require("../models");
 // Controller for thoughts
 const thoughtsController = {
@@ -18,7 +19,7 @@ const thoughtsController = {
       )
       .catch((err) => res.status(500).json(err));
   },
-
+  // Create a new thought and add it to a user
   createThought(req, res) {
     Thought.create(req.body)
       .then((thought) => {
@@ -38,7 +39,7 @@ const thoughtsController = {
       })
       .catch((err) => res.status(500).json(err));
   },
-
+  // Update a thought by ID
   updateThought(req, res) {
     Thought.findOneAndUpdate({ _id: req.params.thoughtId }, req.body, {
       new: true,
@@ -54,7 +55,7 @@ const thoughtsController = {
       })
       .catch((err) => res.status(500).json(err));
   },
-
+  // Delete a thought by ID and remove it from the associated user
   deleteThought(req, res) {
     Thought.findOneAndDelete({ _id: req.params.thoughtId })
       .then((deletedThought) => {
@@ -78,7 +79,7 @@ const thoughtsController = {
       })
       .catch((err) => res.status(500).json(err));
   },
-
+  // Create a new reaction for a thought by it's ID
   createReaction(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
@@ -95,7 +96,7 @@ const thoughtsController = {
       })
       .catch((err) => res.status(500).json(err));
   },
-
+  // Delete a reaction by ID from a thought
   deleteReaction(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
@@ -113,5 +114,5 @@ const thoughtsController = {
       .catch((err) => res.status(500).json(err));
   },
 };
-
+//export all this to the thoughtsController
 module.exports = thoughtsController;
